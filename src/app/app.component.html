@@ -1,8 +1,15 @@
-<div class="w-100 h-100 bg-danger d-flex align-items-center justify-content-center ">
+<div class="w-100 h-100 saliz-game d-flex align-items-center justify-content-center">
 
-<div class="board">
+<div class="board mt-5">
 
-      <p class="counter bg-danger">{{ timer }}</p>
+    <div class="counter">
+      <p class="m-0 ">{{ timer }}</p>
+    </div>
+
+
+
+    <img class="logo"  src="assets/logo.png"/>
+
 
   @for (row of [0, 1, 2, 3];track row;let rowIndex = $index){
   <div class="row">

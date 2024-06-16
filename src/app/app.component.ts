@@ -12,31 +12,33 @@ import {MatDialog, MatDialogModule} from "@angular/material/dialog";
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit{
-  private pictures = [new Card(1,'assets/1.jpeg'),
-    new Card(2,'assets/2.jpeg'),
-    new Card(3,'assets/3.jpeg'),
-    new Card(4,'assets/4.jpeg'),
-    new Card(5,'assets/5.jpeg'),
-    new Card(6,'assets/6.jpeg'),
-    new Card(7,'assets/7.jpeg'),
-    new Card(8,'assets/8.jpeg'),
-    new Card(9,'assets/9.jpeg'),
-    new Card(10,'assets/10.jpeg')];
+  private pictures = [new Card(1,'assets/1.jpg'),
+    new Card(2,'assets/2.jpg'),
+    new Card(3,'assets/3.jpg'),
+    new Card(4,'assets/4.jpg'),
+    new Card(5,'assets/5.jpg'),
+    new Card(6,'assets/6.jpg'),
+    new Card(7,'assets/7.jpg'),
+    new Card(8,'assets/8.jpg'),
+    new Card(9,'assets/9.jpg'),
+    new Card(10,'assets/10.jpg')];
   public cards:Card[] = [];
-  timer: number =30;
+  timer: number =7;
   private flippedCards:number[] = [];
   public corrected:{first:number,second:number}[] = [];
+  private _incorrectNumber=0;
 
   constructor(public dialog: MatDialog) {
     this.initializeCards();
     this.shuffleCards();
   }
 
-  openDialog() {
+  openDialog(data:boolean=true) {
     this.dialog.open(DialogComponent, {
       height: '400px',
       width: '600px',
-      disableClose:true
+      disableClose:true,
+      data
     }).afterClosed().subscribe(()=>{
    this.resetCards()
     });
@@ -46,7 +48,7 @@ export class AppComponent implements OnInit{
 
     setTimeout(() => {
       this.hideCards();
-    }, 30000);
+    }, 7000);
     this.startTimer();
   }
 
@@ -112,10 +114,16 @@ export class AppComponent implements OnInit{
       this.flippedCards = [];
       return true;
     } else {
+      if(this._incorrectNumber<1){
+        this._incorrectNumber++
+      }else {
+        this.openDialog(false)
+      }
       setTimeout(() => {
         this.cards[first].flipped = false;
         this.cards[second].flipped = false;
         this.flippedCards = [];
+
       }, 1000);
       return false;
     }
@@ -126,7 +134,11 @@ export class AppComponent implements OnInit{
     this.shuffleCards();
     this.flippedCards=[];
     this.corrected=[];
-    this.timer=30;
+    this.timer=7;
+    this._incorrectNumber=0;
+    setTimeout(() => {
+      this.hideCards();
+    }, 7000);
     this.startTimer();
   }
 }
