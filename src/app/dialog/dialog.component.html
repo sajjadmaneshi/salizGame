@@ -1,8 +1,10 @@
 
 <mat-dialog-content>
   <div class="d-flex align-items-center justify-content-around w-100 h-100 flex-column text-center">
-    <p class="fw-bolder font-5">{{data?'🤩':'😞'}}</p>
-    <p dir="rtl" [ngClass]="data?'font-5':'font-3'" >{{data?'تبریک!!!!':'متاسفانه فرصت خود را از دست دادید!'}}</p>
-    <button class="btn btn-success w-50" mat-dialog-close>بازی مجدد</button>
+    <p class="fw-bolder font-5">
+      <img [src]="data?'assets/happy.png':'assets/sad.png'"/>
+    </p>
+    <p dir="rtl" class="font-3" >{{data?'تبریک به تو برنده سالیذی :)':'ای وای !! فقط یکبار میتونستی اشتباه بگی!'}}</p>
+    <button class="btn btn-danger w-50" mat-dialog-close>بازی مجدد</button>
   </div>
 </mat-dialog-content>
